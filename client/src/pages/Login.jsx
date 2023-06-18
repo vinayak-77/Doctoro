@@ -14,15 +14,17 @@ const Login = () => {
     try {
       dispatch(showLoading());
       const res = await axios.post("/api/v1/user/login", values);
-      window.location.reload();
-      dispatch(hideLoading());
+
       if (res.data.success) {
+        window.location.reload();
+
         localStorage.setItem("token", res.data.token);
         message.success("Login Successfully");
         navigate("/");
       } else {
-        message.error(res.data.message);
+        message.error("Invalid UserName or Password");
       }
+      dispatch(hideLoading());
     } catch (error) {
       dispatch(hideLoading());
       console.log(error);

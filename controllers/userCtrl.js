@@ -2,6 +2,7 @@ const userModel = require("../models/userModels");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const doctorModel = require("../models/doctorModel");
+const appointmentModel = require("../models/appointmentModel");
 
 const registerController = async (req, res) => {
   try {
@@ -34,7 +35,7 @@ const loginController = async (req, res) => {
     if (!user) {
       return res
         .status(200)
-        .send({ message: "user not found", success: false });
+        .send({ message: "User not found", success: false });
     }
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (!isMatch) {
@@ -158,6 +159,52 @@ const deleteAllNotificationController = async (req, res) => {
   }
 };
 
+const getAllDoctorsController = async (req, res) => {
+  try {
+    const doctor = await doctorModel.find({ status: "approved" });
+
+    res.status(200).send({
+      success: true,
+      message: "Doctor List found",
+      data: doctor,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Unable to delete all notifications",
+      error,
+    });
+  }
+};
+
+const bookAppointmentController = async (req, res) => {
+  try {
+    req.body.status = "pending";
+    const newAppointment = new appointmentModel(req.body);
+    await newAppointment.save();
+
+    const user = await userModel.findOne({ _id: req.body.doctorInfo.userId });
+    user.notification.push({
+      type: "New-appointment-request",
+      message: `A new Appointment Request from ${req.body.userInfo.name}`,
+      onCLickPath: "/user/appointments",
+    });
+    await user.save();
+    res.status(200).send({
+      success: true,
+      message: "Appointment Booked succesfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error while booking the appointment",
+    });
+  }
+};
+
 module.exports = {
   loginController,
   registerController,
@@ -165,4 +212,6 @@ module.exports = {
   applyDoctorController,
   getAllNotificationController,
   deleteAllNotificationController,
+  getAllDoctorsController,
+  bookAppointmentController,
 };

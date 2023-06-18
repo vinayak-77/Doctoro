@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import Layout from "../../components/Layout";
+import React, { useState, useEffect } from "react";
+import Layout from "./../../components/Layout";
 import axios from "axios";
-import { Table } from "antd";
+import { message, Table } from "antd";
 
 const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
@@ -13,14 +13,31 @@ const Doctors = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-
       if (res.data.success) {
         setDoctors(res.data.data);
-      } else {
-        console.log("ERROR");
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleAccountStatus = async (record, status) => {
+    try {
+      const res = await axios.post(
+        "/api/v1/admin/changeAccountStatus",
+        { doctorId: record._id, userId: record.userId, status: status },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (res.data.success) {
+        message.success(res.data.message);
+        window.location.reload();
+      }
+    } catch (error) {
+      message.error("Something Went Wrong");
     }
   };
 
@@ -52,7 +69,12 @@ const Doctors = () => {
       render: (text, record) => (
         <div className="d-flex">
           {record.status === "pending" ? (
-            <button className="btn btn-success">Approve</button>
+            <button
+              className="btn btn-success"
+              onClick={() => handleAccountStatus(record, "approved")}
+            >
+              Approve
+            </button>
           ) : (
             <button className="btn btn-danger">Block</button>
           )}
@@ -63,7 +85,7 @@ const Doctors = () => {
 
   return (
     <Layout>
-      <h1 className="text-center m-2">Doctors</h1>
+      <h1 className="text-center m-3">Doctors</h1>
       <Table columns={columns} dataSource={doctors} />
     </Layout>
   );
