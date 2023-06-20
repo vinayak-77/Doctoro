@@ -4,7 +4,8 @@ import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/RegisterStyles.css";
+// import "../styles/RegisterStyles.css";
+import "../styles/Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const Login = () => {
 
   return (
     <>
+      <h3>DOCTORO</h3>
       <div className="form-container">
         <Form layout="vertical" onFinish={onFinishHandler} className="card p-4">
           <h1>Login Form</h1>

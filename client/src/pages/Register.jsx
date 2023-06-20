@@ -30,6 +30,7 @@ const Register = () => {
 
   return (
     <>
+      <h3>DOCTORO</h3>
       <div className="form-container">
         <Form layout="vertical" onFinish={onFinishHandler} className="card p-4">
           <h1>Registration Form</h1>

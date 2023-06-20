@@ -1,0 +1,49 @@
+.card {
+  background-color: #458ab5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 20px;
+  margin-right: 10px; /* Add horizontal spacing between cards */
+}
+
+.card:last-child {
+  margin-right: 0; /* Remove right margin from the last card */
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.card-body {
+  line-height: 1.5;
+}
+
+.card-body p {
+  margin-bottom: 5px;
+}
+
+.card-body b {
+  font-weight: bold;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgb(22, 185, 230);
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: rgb(15, 155, 200);
+}

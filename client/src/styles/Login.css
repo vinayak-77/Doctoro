@@ -3,7 +3,7 @@ h3 {
   font-size: 40px;
   font-weight: bold;
   color: #1890ff;
-  margin-bottom: 20px;
+  margin-top: 40px;
 }
 
 .form-container {
@@ -17,7 +17,6 @@ h3 {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
 }
 
 .card h1 {
@@ -43,7 +42,7 @@ h3 {
   background-color: #1890ff;
   color: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: 20px;
   font-size: 16px;
   text-align: center;
   cursor: pointer;
@@ -52,7 +51,7 @@ h3 {
 .card .ant-btn-primary {
   width: 50%;
   height: 40px;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: #1890ff;
   border-color: #1890ff;
   text-align: center;
