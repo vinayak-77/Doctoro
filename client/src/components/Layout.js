@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { userMenu, adminMenu } from "../Data/data";
+import { userMenu, adminMenu, doctorMenu } from "../Data/data";
 import { Avatar, Badge, message } from "antd";
 import "../styles/LayoutStyles.css";
 
@@ -10,25 +10,6 @@ const Layout = ({ children }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const location = useLocation();
-
-  const doctorMenu = [
-    {
-      name: "Home",
-      path: "/",
-      icon: "fa-solid fa-house",
-    },
-    {
-      name: "Appointments",
-      path: "/appointments",
-      icon: "fa-solid fa-list",
-    },
-
-    {
-      name: "Profile",
-      path: `/doctor/profile/${user?._id}`,
-      icon: "fa-solid fa-user",
-    },
-  ];
 
   const SidebarMenu = user?.isAdmin
     ? adminMenu
