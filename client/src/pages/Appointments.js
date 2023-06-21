@@ -3,6 +3,8 @@ import Layout from "../components/Layout";
 import axios from "axios";
 import moment from "moment";
 import { Table } from "antd";
+import "../styles/Appointment.css";
+import { Content } from "antd/es/layout/layout";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState();
@@ -48,8 +50,12 @@ const Appointments = () => {
   ];
   return (
     <Layout>
-      <h1>Appointment List</h1>
-      <Table columns={columns} dataSource={appointments} />
+      <Content className="container">
+        <h1>Appointment List</h1>
+        <div className="table-container">
+          <Table columns={columns} dataSource={appointments} />
+        </div>
+      </Content>
     </Layout>
   );
 };

@@ -4,7 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { userMenu, adminMenu, doctorMenu } from "../Data/data";
 import { Avatar, Badge, message } from "antd";
-import "../styles/LayoutStyles.css";
+// import "../styles/LayoutStyles.css";
+import "../styles/Layout.css";
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();
