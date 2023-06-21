@@ -15,6 +15,8 @@ import Profile from "./pages/doctor/Profile";
 import BookingPage from "./pages/BookingPage";
 import Appointments from "./pages/Appointments";
 import DoctorAppointments from "./pages/doctor/DoctorAppointments";
+import ChatHome from "./pages/ChatHome";
+import ChatPage from "./pages/ChatPage";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -108,6 +110,23 @@ function App() {
               element={
                 <ProtectedRoute>
                   <DoctorAppointments />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/chat-home"
+              element={
+                <ProtectedRoute>
+                  <ChatHome />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/chat/:roomID"
+              element={
+                <ProtectedRoute>
+                  <ChatPage />
                 </ProtectedRoute>
               }
             />
