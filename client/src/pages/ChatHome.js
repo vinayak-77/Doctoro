@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client"; // Import the Socket.IO client library
+import Chat from "../components/Chat";
 import "../styles/chatHome.css";
+import "../styles/Chat.css";
+
+const socket = io();
 
 const HomePage = () => {
   const [username, setUsername] = useState("");
   const [roomID, setRoomID] = useState("");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Create a Socket.IO connection when the component mounts
-    const socket = io(); // Connect to the socket server
-
-    // Clean up the socket connection when the component unmounts
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+  const [join, setJoin] = useState(false);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -28,10 +23,17 @@ const HomePage = () => {
 
   const handleJoinRoom = () => {
     // Redirect to the chat room page with roomID and username included in the URL
-    navigate(`/chat/${roomID}?username=${username}`);
+    setJoin(true);
+    socket.emit("joinRoom", { username, roomID });
   };
 
-  return (
+  const handleArrowClick = () => {
+    setJoin(false);
+    socket.disconnect();
+    navigate("/");
+  };
+
+  return !join ? (
     <div className="homepage-container">
       <h3 className="logo">DOCTORO</h3>
       <div className="form-container">
@@ -58,6 +60,14 @@ const HomePage = () => {
         </button>
       </div>
     </div>
+  ) : (
+    <>
+      <div className="arrow" onClick={handleArrowClick}>
+        <span>&#8592;</span>
+      </div>
+
+      <Chat socket={socket} username={username} roomID={roomID} />
+    </>
   );
 };
 

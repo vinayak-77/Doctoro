@@ -12,10 +12,18 @@ dotenv.config();
 connectDB();
 
 const app = express();
-const http = require("http").createServer(app); // Create HTTP server
+const http = require("http");
+const server = http.createServer(app);
 
 // Socket.IO integration
-const io = new Server(http);
+// const io = new Server(http);
+
+const io = new Server(server, {
+  cors: {
+    origin: "http//localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
 
 // Middlewares
 app.use(express.json());
@@ -30,7 +38,7 @@ app.use("/api/v1/chat", require("./routes/chatRoutes"));
 
 // Socket.IO events
 io.on("connection", (socket) => {
-  console.log(`A user connected: ${socket.id}`);
+  console.log("A user connected");
 
   let roomID;
   // Join room
@@ -38,19 +46,37 @@ io.on("connection", (socket) => {
     roomID = roomID;
     socket.join(roomID);
     socket.username = username;
-    console.log(
-      `User with id ${socket.id} joined the room with roomId: ${roomID}`
-    );
+
+    // Emit message to the room
+    io.to(roomID).emit("message", {
+      // user: "System",
+      // text: `${username} joined the room.`,
+      // timestamp: new Date().toLocaleTimeString(),
+      // console.log(`${username} joined the room.`);
+    });
+
+    // Emit updated user list to the room
+    const room = io.sockets.adapter.rooms.get(roomID);
+    const userList = room
+      ? Array.from(room).map(
+          (socketId) => io.sockets.sockets.get(socketId).username
+        )
+      : [];
+    io.to(roomID).emit("userList", userList);
   });
 
   // Handle incoming messages
-  socket.on("sendMessage", (messageData) => {
-    socket.to(messageData.roomID).emit("receiveMessage", messageData);
+  socket.on("sendMessage", (message) => {
+    io.to(message.roomID).emit("message", {
+      user: message.user,
+      text: message.text,
+      timestamp: new Date().toLocaleTimeString(),
+    });
   });
 
   // Handle user disconnection
   socket.on("disconnect", () => {
-    console.log(`A user disconnected: ${socket.id}`);
+    console.log("A user disconnected");
 
     if (socket.username) {
       // Emit message to the room

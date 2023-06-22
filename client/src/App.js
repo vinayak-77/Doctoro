@@ -17,6 +17,8 @@ import Appointments from "./pages/Appointments";
 import DoctorAppointments from "./pages/doctor/DoctorAppointments";
 import ChatHome from "./pages/ChatHome";
 import ChatPage from "./pages/ChatPage";
+import TrialChatpage from "./pages/TrialChatpage";
+import Chat from "./components/Chat";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -127,6 +129,17 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ChatPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route path="/chat-page/:roomID/:username" element={<Chat />} />
+
+            <Route
+              path="chat-trial"
+              element={
+                <ProtectedRoute>
+                  <TrialChatpage />
                 </ProtectedRoute>
               }
             />
