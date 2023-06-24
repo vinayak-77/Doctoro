@@ -30,17 +30,12 @@ app.use("/api/v1/chat", require("./routes/chatRoutes"));
 
 // Socket.IO events
 io.on("connection", (socket) => {
-  console.log(`A user connected: ${socket.id}`);
-
   let roomID;
   // Join room
   socket.on("joinRoom", ({ username, roomID }) => {
     roomID = roomID;
     socket.join(roomID);
     socket.username = username;
-    console.log(
-      `User with id ${socket.id} joined the room with roomId: ${roomID}`
-    );
   });
 
   // Handle incoming messages
@@ -50,8 +45,6 @@ io.on("connection", (socket) => {
 
   // Handle user disconnection
   socket.on("disconnect", () => {
-    console.log(`A user disconnected: ${socket.id}`);
-
     if (socket.username) {
       // Emit message to the room
       io.to(roomID).emit("message", {

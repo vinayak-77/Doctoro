@@ -77,6 +77,7 @@ const BookingPage = () => {
           userInfo: user,
           date: date,
           time: time,
+          chatId: "",
         },
         {
           headers: {

@@ -17,7 +17,6 @@ import Appointments from "./pages/Appointments";
 import DoctorAppointments from "./pages/doctor/DoctorAppointments";
 import ChatHome from "./pages/ChatHome";
 import ChatPage from "./pages/ChatPage";
-import TrialChatpage from "./pages/TrialChatpage";
 import Chat from "./components/Chat";
 
 function App() {
@@ -135,14 +134,6 @@ function App() {
 
             <Route path="/chat-page/:roomID/:username" element={<Chat />} />
 
-            <Route
-              path="chat-trial"
-              element={
-                <ProtectedRoute>
-                  <TrialChatpage />
-                </ProtectedRoute>
-              }
-            />
             <Route
               path="/register"
               element={

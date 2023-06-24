@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const doctorModel = require("../models/doctorModel");
 const appointmentModel = require("../models/appointmentModel");
 const moment = require("moment");
+const { v1: uuidv1, v4: uuidv4 } = require("uuid");
 
 const registerController = async (req, res) => {
   try {
@@ -184,6 +185,8 @@ const bookAppointmentController = async (req, res) => {
     req.body.date = moment(req.body.date, "DD-MM-YYYY").toISOString();
     req.body.time = moment(req.body.time, "HH:mm").toISOString();
     req.body.status = "pending";
+    req.body.chatId = uuidv4();
+
     const newAppointment = new appointmentModel(req.body);
     await newAppointment.save();
     const user = await userModel.findOne({ _id: req.body.doctorInfo.userId });

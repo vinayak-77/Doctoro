@@ -47,6 +47,10 @@ const Appointments = () => {
       title: "Status",
       dataIndex: "status",
     },
+    {
+      title: "Chat ID",
+      dataIndex: "chatId",
+    },
   ];
   return (
     <Layout>

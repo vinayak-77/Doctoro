@@ -71,6 +71,10 @@ const DoctorAppointments = () => {
       dataIndex: "status",
     },
     {
+      title: "Chat ID",
+      dataIndex: "chatId",
+    },
+    {
       title: "Actions",
       dataIndex: "actions",
       render: (text, record) => (

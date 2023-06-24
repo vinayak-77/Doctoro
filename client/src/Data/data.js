@@ -14,11 +14,11 @@ export const userMenu = [
     path: "/apply-doctor",
     icon: "fa-solid fa-user-doctor",
   },
-  // {
-  //   name: "Profile",
-  //   path: "/profile",
-  //   icon: "fa-solid fa-user",
-  // },
+  {
+    name: "Chat",
+    path: "/chat-home",
+    icon: "fa-solid fa-message",
+  },
 ];
 
 export const adminMenu = [
@@ -61,5 +61,10 @@ export const doctorMenu = [
     name: "Profile",
     path: "/doctor/profile/:id",
     icon: "fa-solid fa-user",
+  },
+  {
+    name: "Chat",
+    path: "/chat-home",
+    icon: "fa-solid fa-message",
   },
 ];
