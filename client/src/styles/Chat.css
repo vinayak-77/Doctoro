@@ -1,15 +1,22 @@
+.arrows {
+  width: 100px;
+  cursor: pointer;
+  margin-left: 50px;
+  margin-top: 40px;
+  position: relative;
+}
 .arrow {
   position: fixed;
   top: 20px;
   left: 20px;
   width: 40px;
   height: 40px;
-  background-color: #43a047;
+  /* background-color: #43a047;
   color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   cursor: pointer;
   z-index: 9999;
 }
@@ -18,13 +25,13 @@
   content: "";
   width: 0;
   height: 0;
-  border-top: 10px solid transparent;
+  /* border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-right: 10px solid #fff;
+  border-right: 10px solid #fff; */
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  /* transform: translate(-50%, -50%) rotate(-90deg); */
 }
 
 .chat-window {

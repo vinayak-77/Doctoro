@@ -6,6 +6,10 @@ import "../styles/chatHome.css";
 import "../styles/Chat.css";
 import Layout from "../components/Layout";
 
+// const socket = io("https://doctoro-production.onrender.com", {
+//   transports: ["websocket"],
+// });
+
 const socket = io();
 
 const HomePage = () => {
@@ -65,8 +69,8 @@ const HomePage = () => {
     </Layout>
   ) : (
     <>
-      <div className="arrow" onClick={handleArrowClick}>
-        <span>&#8592;</span>
+      <div className="arrows" onClick={handleArrowClick}>
+        <i class="fa-solid fa-arrow-left-long fa-2xl"></i>
       </div>
 
       <Chat socket={socket} username={username} roomID={roomID} />
