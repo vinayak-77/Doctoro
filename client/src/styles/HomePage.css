@@ -1,0 +1,136 @@
+.home-container {
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: #075e54;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.page-header p {
+  color: #666;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Search Section */
+.search-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: none;
+  margin-bottom: 40px;
+}
+
+.search-card .ant-card-body {
+  padding: 30px;
+}
+
+.doctor-search .ant-input-affix-wrapper {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.doctor-search .ant-input-affix-wrapper:hover,
+.doctor-search .ant-input-affix-wrapper:focus,
+.doctor-search .ant-input-affix-wrapper-focused {
+  border-color: #128c7e;
+  box-shadow: 0 0 0 2px rgba(18, 140, 126, 0.1);
+}
+
+.doctor-search .ant-input-prefix {
+  color: #999;
+  font-size: 1.1rem;
+  margin-right: 10px;
+}
+
+.doctor-search input.ant-input {
+  font-size: 1rem;
+}
+
+/* Doctors Section */
+.doctors-section {
+  margin-top: 30px;
+}
+
+.loading-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.doctor-card-skeleton {
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+.doctor-card-skeleton .ant-card-body {
+  padding: 20px;
+}
+
+.doctors-grid {
+  margin: 0 !important;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.empty-state .ant-empty-description {
+  color: #666;
+  font-size: 1rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 20px;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .search-card .ant-card-body {
+    padding: 20px;
+  }
+
+  .loading-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .page-header p {
+    font-size: 1rem;
+  }
+
+  .empty-state {
+    padding: 40px 20px;
+  }
+
+  .loading-grid {
+    grid-template-columns: 1fr;
+  }
+} 

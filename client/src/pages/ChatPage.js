@@ -11,8 +11,8 @@ const ChatPage = () => {
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const [messageInput, setMessageInput] = useState("");
-  const [socket, setSocket] = useState(null); // Declare socket as a state variable
-  const [newmessage, setNewmessage] = useState(false);
+  const [socket, setSocket] = useState(null);
+  const [connected, setConnected] = useState(false);
 
   const fetchMessages = async () => {
     try {
@@ -21,9 +21,7 @@ const ChatPage = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      if (res.data.status === false) {
-        console.log("herrrerese");
-      } else {
+      if (res.data.success) {
         setMessages(res.data.chatHistory);
       }
     } catch (error) {
@@ -32,73 +30,99 @@ const ChatPage = () => {
   };
 
   useEffect(() => {
-    // Create a Socket.IO connection when the component mounts
-    const newSocket = io();
+    // Create Socket.IO connection
+    const newSocket = io('', {
+      transports: ['websocket'],
+      path: '/socket.io',
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000
+    });
+    
+    newSocket.on('connect', () => {
+      console.log('Socket connected:', newSocket.id);
+      setConnected(true);
+      
+      // Join the room after connection
+      newSocket.emit("joinRoom", { username, roomID });
+      
+      // Fetch existing messages
+      fetchMessages();
+    });
+
+    newSocket.on('disconnect', () => {
+      console.log('Socket disconnected');
+      setConnected(false);
+    });
+
+    newSocket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error);
+      setConnected(false);
+    });
+
     setSocket(newSocket);
 
-    newSocket.emit("joinRoom", { username, roomID });
-
-    fetchMessages();
-
+    // Listen for new messages
     newSocket.on("message", (message) => {
+      console.log('Received message:', message);
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
+    // Listen for user list updates
     newSocket.on("userList", (userList) => {
+      console.log('Updated user list:', userList);
       setUsers(userList);
     });
 
-    // Receive and handle user list updates
-    newSocket.on("userList", (userList) => {
-      setUsers(userList);
-    });
-
-    // Clean up the socket connection when the component unmounts
+    // Cleanup on unmount
     return () => {
+      console.log('Cleaning up socket connection');
       newSocket.disconnect();
     };
   }, [roomID, username]);
 
   const handleSendMessage = async () => {
-    if (messageInput.trim() !== "") {
+    if (messageInput.trim() !== "" && socket && connected) {
       const message = {
         user: username,
         text: messageInput,
-        timestamp: new Date().toLocaleString(), // Add timestamp to the message
+        roomID: roomID,
+        timestamp: new Date().toLocaleString()
       };
 
-      try {
-        // Send the message to the backend API
+      console.log('Sending message:', message);
 
+      // Send message through socket
+      socket.emit("sendMessage", message);
+
+      // Save message to database
+      try {
         await axios.post(`/api/v1/chat/${roomID}/message`, message, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        setNewmessage(true);
       } catch (error) {
-        console.error("Error sending message:", error);
+        console.error("Error saving message:", error);
       }
 
-      // Clear the message input
       setMessageInput("");
-
-      // Update the messages state to display the sent message immediately
-      setMessages((prevMessages) => [...prevMessages, message]);
-      // fetchMessages();
     }
   };
 
   return (
     <div className="chat-page">
       <div className="header">
-        <h2>Chat</h2>
+        <h2>Chat Room</h2>
         <p>Room ID: {roomID}</p>
-        <p>Username: {username}</p>
+        <p>Connected as: {username}</p>
+        <p className={`connection-status ${connected ? 'connected' : 'disconnected'}`}>
+          {connected ? 'Connected' : 'Disconnected'}
+        </p>
       </div>
       <div className="chatting-area">
         <div className="sidebar">
-          <h3>Users</h3>
+          <h3>Online Users ({users.length})</h3>
           <ul>
             {users.map((user, index) => (
               <li key={index}>{user}</li>
@@ -127,8 +151,13 @@ const ChatPage = () => {
           type="text"
           value={messageInput}
           onChange={(e) => setMessageInput(e.target.value)}
+          onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+          placeholder="Type your message..."
+          disabled={!connected}
         />
-        <button onClick={handleSendMessage}>Send</button>
+        <button onClick={handleSendMessage} disabled={!connected}>
+          Send
+        </button>
       </div>
     </div>
   );

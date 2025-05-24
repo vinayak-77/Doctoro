@@ -1,51 +1,154 @@
-.form-container {
-  max-width: 400px;
-  margin: 0 auto;
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  background: linear-gradient(145deg, #075e54 0%, #128c7e 60%, #25d366 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-.card {
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-label {
-  font-weight: 500;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+.register-content {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  font-size: 14px;
+  max-width: 500px;
+  margin: auto;
+  padding: 40px 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(10px);
 }
 
-button {
-  background-color: #1890ff;
-  color: #fff;
+.register-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.register-header .logo {
+  color: #075e54;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.register-header .subtitle {
+  color: #666;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.register-form {
+  margin-top: 30px;
+}
+
+.register-form .ant-form-item {
+  margin-bottom: 25px;
+}
+
+.register-form .ant-form-item-label > label {
+  color: #333;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.register-form .ant-input-affix-wrapper {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.register-form .ant-input-affix-wrapper:hover,
+.register-form .ant-input-affix-wrapper:focus,
+.register-form .ant-input-affix-wrapper-focused {
+  border-color: #128c7e;
+  box-shadow: 0 0 0 2px rgba(18, 140, 126, 0.1);
+}
+
+.register-form .ant-input-prefix {
+  color: #999;
+  font-size: 1.1rem;
+  margin-right: 10px;
+}
+
+.register-form input {
+  font-size: 1rem;
+}
+
+.register-form .ant-input-password {
+  padding: 12px 15px;
+  border-radius: 10px;
+}
+
+.register-button {
+  height: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: #075e54;
   border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-button:hover {
-  background-color: #40a9ff;
-}
-
-a {
-  display: block;
+  border-radius: 10px;
   margin-top: 10px;
-  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.register-button:hover,
+.register-button:focus {
+  background: #128c7e;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(18, 140, 126, 0.2);
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 25px;
+  color: #666;
+}
+
+.login-link {
+  color: #075e54;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: #128c7e;
+  text-decoration: underline;
+}
+
+.register-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.background-pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+@media (max-width: 768px) {
+  .register-content {
+    max-width: 90%;
+    padding: 30px 20px;
+  }
+
+  .register-header .logo {
+    font-size: 2rem;
+  }
+
+  .register-header .subtitle {
+    font-size: 1rem;
+  }
+
+  .register-form .ant-form-item {
+    margin-bottom: 20px;
+  }
 }

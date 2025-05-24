@@ -1,0 +1,210 @@
+.doctor-profile-container {
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: #075e54;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.page-header p {
+  color: #666;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.profile-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+.profile-card .ant-card-body {
+  padding: 40px;
+}
+
+/* Loading State */
+.loading-skeleton {
+  padding: 20px;
+}
+
+/* Error State */
+.error-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.error-state i {
+  font-size: 3rem;
+  color: #ff4d4f;
+  margin-bottom: 20px;
+}
+
+.error-state h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.error-state p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Section Headers */
+.section-header {
+  margin-bottom: 30px;
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  color: #075e54;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.section-header p {
+  color: #666;
+  margin: 0;
+}
+
+/* Form Styles */
+.ant-form-item-label > label {
+  color: #333;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.ant-input-affix-wrapper {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.ant-input-affix-wrapper:hover,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: #128c7e;
+  box-shadow: 0 0 0 2px rgba(18, 140, 126, 0.1);
+}
+
+.ant-input-prefix {
+  color: #999;
+  font-size: 1.1rem;
+  margin-right: 10px;
+}
+
+input.ant-input {
+  font-size: 1rem;
+}
+
+/* Time Picker Styles */
+.time-picker {
+  width: 100%;
+}
+
+.ant-picker {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+}
+
+.ant-picker:hover,
+.ant-picker-focused {
+  border-color: #128c7e;
+  box-shadow: 0 0 0 2px rgba(18, 140, 126, 0.1);
+}
+
+/* Divider Styles */
+.ant-divider {
+  margin: 40px 0;
+  border-top-color: #e0e0e0;
+}
+
+/* Form Actions */
+.form-actions {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.update-button {
+  height: 50px;
+  min-width: 200px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: #075e54;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.update-button i {
+  font-size: 1.2rem;
+}
+
+.update-button:hover,
+.update-button:focus {
+  background: #128c7e;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(18, 140, 126, 0.2);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .doctor-profile-container {
+    padding: 20px;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .profile-card .ant-card-body {
+    padding: 20px;
+  }
+
+  .section-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .ant-form-item {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .update-button {
+    width: 100%;
+  }
+
+  .error-state {
+    padding: 40px 20px;
+  }
+
+  .error-state i {
+    font-size: 2.5rem;
+  }
+
+  .error-state h3 {
+    font-size: 1.3rem;
+  }
+} 

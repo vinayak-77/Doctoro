@@ -1,60 +1,65 @@
 const ChatRoom = require("../models/chatModel");
 
 // Controller for sending a message
-messageController = async (req, res) => {
+const messageController = async (req, res) => {
   const { roomID } = req.params;
-  const { user, text } = req.body;
-  console.log(roomID);
+  const { user, text, timestamp } = req.body;
+
   try {
-    const chatRoom = await ChatRoom.findOne({ roomID });
+    let chatRoom = await ChatRoom.findOne({ roomID });
 
     if (!chatRoom) {
       // Create a new chat room if it doesn't exist
-      const newChatRoom = new ChatRoom({ roomID, messages: [] });
-      console.log(newChatRoom);
-      await newChatRoom.save();
+      chatRoom = new ChatRoom({ roomID, messages: [] });
+      await chatRoom.save();
     }
 
     // Add the new message to the chat room
-    await ChatRoom.updateOne(
-      { roomID },
-      { $push: { messages: { user, text } } }
-    );
+    const message = {
+      user,
+      text,
+      timestamp: timestamp || new Date().toLocaleString()
+    };
 
-    // Emit the message to all connected clients in the room (using socket.io)
+    chatRoom.messages.push(message);
+    await chatRoom.save();
 
-    res
-      .status(200)
-      .json({ success: true, message: "Message sent successfully" });
+    res.status(200).json({ 
+      success: true, 
+      message: "Message saved successfully",
+      savedMessage: message
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Failed to send message" });
+    console.error("Error saving message:", error);
+    res.status(500).json({ success: false, message: "Failed to save message" });
   }
 };
 
 // Controller for retrieving chat history
-historyController = async (req, res) => {
+const historyController = async (req, res) => {
   const { roomID } = req.params;
 
   try {
     const chatRoom = await ChatRoom.findOne({ roomID });
 
     if (!chatRoom) {
-      // Create a new chat room if it doesn't exist
-      const newChatRoom = new ChatRoom({ roomID, messages: [] });
-      console.log(newChatRoom);
-      await newChatRoom.save();
-      res
-        .status(200)
-        .json({ success: true, chatHistory: newchatRoom.messages });
-    } else {
-      res.status(200).json({ success: true, chatHistory: chatRoom.messages });
+      // Return empty history for new chat rooms
+      return res.status(200).json({ 
+        success: true, 
+        chatHistory: [] 
+      });
     }
+
+    res.status(200).json({ 
+      success: true, 
+      chatHistory: chatRoom.messages 
+    });
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ success: false, message: "Failed to retrieve chat history" });
+    console.error("Error retrieving chat history:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Failed to retrieve chat history" 
+    });
   }
 };
 

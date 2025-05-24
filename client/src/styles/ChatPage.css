@@ -106,3 +106,20 @@
 .chatting-area {
   display: flex;
 }
+
+.connection-status {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.connection-status.connected {
+  background-color: #4caf50;
+  color: white;
+}
+
+.connection-status.disconnected {
+  background-color: #f44336;
+  color: white;
+}

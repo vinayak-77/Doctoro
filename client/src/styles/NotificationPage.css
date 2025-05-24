@@ -1,0 +1,206 @@
+.notification-container {
+  padding: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: #075e54;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.page-header p {
+  color: #666;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.notification-content-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+.notification-content-card .ant-card-body {
+  padding: 0;
+}
+
+/* Tabs Styles */
+.notification-tabs {
+  padding: 20px;
+}
+
+.notification-tabs .ant-tabs-nav {
+  margin-bottom: 20px;
+}
+
+.notification-tabs .ant-tabs-tab {
+  padding: 12px 20px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.notification-tabs .ant-tabs-tab-active {
+  background: rgba(7, 94, 84, 0.05);
+  border-radius: 8px;
+}
+
+.notification-tabs .ant-tabs-ink-bar {
+  background: #075e54;
+}
+
+/* Tab Content */
+.tab-content {
+  padding: 0 20px;
+}
+
+.tab-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.tab-header .ant-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.tab-header .ant-btn:hover {
+  transform: translateY(-2px);
+}
+
+.tab-header .ant-btn i {
+  font-size: 1rem;
+}
+
+/* Notification Card */
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.notification-card {
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 2px solid #f0f0f0;
+}
+
+.notification-card:hover {
+  transform: translateY(-2px);
+  border-color: #128c7e;
+  box-shadow: 0 5px 15px rgba(18, 140, 126, 0.1);
+}
+
+.notification-card .ant-card-body {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+}
+
+.notification-icon {
+  font-size: 1.2rem;
+  color: #128c7e;
+  background: rgba(18, 140, 126, 0.1);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.notification-message {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.notification-arrow {
+  color: #999;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.notification-card:hover .notification-arrow {
+  transform: translateX(5px);
+  color: #128c7e;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.empty-state .ant-empty-description {
+  color: #666;
+  font-size: 1rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .notification-container {
+    padding: 20px;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .notification-tabs {
+    padding: 15px;
+  }
+
+  .tab-content {
+    padding: 0 15px;
+  }
+
+  .notification-card .ant-card-body {
+    padding: 15px;
+  }
+
+  .notification-message {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .notification-tabs .ant-tabs-tab {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .tab-header .ant-btn {
+    width: 100%;
+    justify-content: center;
+  }
+} 

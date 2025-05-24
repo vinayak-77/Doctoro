@@ -5,69 +5,85 @@ import "../styles/Chat.css";
 const Chat = ({ socket, username, roomID }) => {
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
+  const [userList, setUserList] = useState([]);
 
   const sendMessage = async () => {
-    if (message !== "") {
+    if (message.trim() !== "") {
       const messageData = {
         roomID: roomID,
-        author: username,
-        message: message,
-        time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
+        user: username,
+        text: message,
+        timestamp: new Date().toISOString()
       };
+      
       await socket.emit("sendMessage", messageData);
-      setMessageList((list) => [...list, messageData]);
+      setMessage("");
     }
   };
 
   useEffect(() => {
+    // Listen for regular messages
     socket.on("receiveMessage", (data) => {
-      setMessageList((list) => [...list, data]);
+      setMessageList((list) => [...list, {
+        ...data,
+        displayTime: new Date(data.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }]);
     });
+
+    // Listen for system messages (join/leave)
+    socket.on("message", (data) => {
+      setMessageList((list) => [...list, {
+        ...data,
+        displayTime: new Date(data.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }]);
+    });
+
+    // Listen for user list updates
+    socket.on("userList", (users) => {
+      setUserList(users);
+    });
+    
     return () => {
-      socket.removeListener("receiveMessage");
+      socket.off("receiveMessage");
+      socket.off("message");
+      socket.off("userList");
     };
   }, [socket]);
 
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <p>Chat</p>
+        <p>Chat Room: {roomID}</p>
+        <span className="online-users">Online: {userList.length}</span>
       </div>
       <div className="chat-body">
         <ScrollToBottom className="message-container">
-          {messageList.map((message) => {
-            return (
-              <div
-                className="message"
-                id={username === message.author ? "you" : "other"}
-              >
-                <div>
-                  <div className="message-content">
-                    <p>{message.message}</p>
-                  </div>
-                  <div className="message-meta">
-                    <p id="author">{message.author}</p>
-                    <p id="time">{message.time}</p>
-                  </div>
+          {messageList.map((msg, index) => (
+            <div
+              key={index}
+              className={`message ${msg.user === "System" ? "system-message" : ""}`}
+              id={username === msg.user ? "you" : "other"}
+            >
+              <div>
+                <div className="message-content">
+                  <p>{msg.text}</p>
+                </div>
+                <div className="message-meta">
+                  <p id="author">{msg.user}</p>
+                  <p id="time">{msg.displayTime}</p>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </ScrollToBottom>
       </div>
       <div className="chat-footer">
         <input
           type="text"
-          placeholder="Send a message"
-          onChange={(event) => {
-            setMessage(event.target.value);
-          }}
-          onKeyPress={(event) => {
-            event.key === "Enter" && sendMessage();
-          }}
+          value={message}
+          placeholder="Type your message..."
+          onChange={(event) => setMessage(event.target.value)}
+          onKeyPress={(event) => event.key === "Enter" && sendMessage()}
         />
         <button onClick={sendMessage}>&#9658;</button>
       </div>
