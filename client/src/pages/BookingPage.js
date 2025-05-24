@@ -83,7 +83,8 @@ const BookingPage = () => {
       setLoading(prev => ({ ...prev, check: true }));
       dispatch(showLoading());
 
-      const formattedDate = moment(selectedDate).format("DD-MM-YYYY");
+      // Format the selected date properly using the selectedDate moment object
+      const formattedDate = selectedDate.format("DD-MM-YYYY");
       
       // Log the request data
       console.log("Checking availability with:", {
@@ -160,7 +161,7 @@ const BookingPage = () => {
       setLoading(prev => ({ ...prev, book: true }));
       dispatch(showLoading());
 
-      const formattedDate = moment(selectedDate).format("DD-MM-YYYY");
+      const formattedDate = selectedDate.format("DD-MM-YYYY");
 
       const res = await axios.post(
         "/api/v1/user/book-appointment",

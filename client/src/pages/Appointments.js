@@ -66,7 +66,7 @@ const Appointments = () => {
           {moment(record.date).format("DD MMM, YYYY")}
           <br />
           <i className="fas fa-clock"></i>
-          {moment(record.time).format("hh:mm A")}
+          {record.time}
         </span>
       ),
     },

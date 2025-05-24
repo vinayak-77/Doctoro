@@ -12,6 +12,7 @@ const {
   userAppointmentController,
 } = require("../controllers/userCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
+const rateLimiter = require("../middlewares/rateLimiter");
 
 const router = express.Router();
 
@@ -47,11 +48,12 @@ router.post(
 
 router.get("/getAllDoctors", authMiddleware, getAllDoctorsController);
 
-router.post("/book-appointment", authMiddleware, bookAppointmentController);
+router.post("/book-appointment", authMiddleware, rateLimiter, bookAppointmentController);
 
 router.post(
   "/booking-availability",
   authMiddleware,
+  rateLimiter,
   bookAvailabilityController
 );
 
